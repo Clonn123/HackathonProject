@@ -1,0 +1,109 @@
+.header-container {
+  padding: 10px 0;
+  position: relative;
+  font-family: 'KoreanCalligraphy', sans-serif;
+}
+
+.header-container::after {
+  content: ""; /* Обязательное свойство для псевдоэлемента */
+  position: absolute; /* Абсолютное позиционирование относительно родительского элемента */
+  left: 0; /* Положение слева */
+  bottom: 0; /* Положение снизу */
+  width: 100%; /* Ширина полоски */
+  height: 2px; /* Высота полоски */
+  background-color: #170600; /* Цвет полоски */
+}
+
+.header {
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+}
+
+h1{
+  margin: 10px 10px;
+  font-size: 26px;
+  
+}
+
+.categories {
+  display: flex;
+}
+
+.category {
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-left: 20px;
+  color: #170600;
+}
+
+.category:last-child {
+  margin-right: 0;
+}
+
+.category:hover {
+  opacity: 0.7;
+}
+
+.search-bar input {
+  width: 250px;
+  height: 38px;
+  outline: none;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1.5px solid #170600; 
+  background: linear-gradient(135deg, #b8aba1, #ada097, #b8aba1);
+  font-family: 'KoreanCalligraphy', sans-serif;
+}
+.search-bar input[type="text"]::placeholder {
+  color: #17060098; 
+  font-family: 'KoreanCalligraphy', sans-serif;
+}
+.registration-link a {
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-left: 20px;
+  margin-right: 10px;
+  
+}
+
+.registration-link a:hover{
+  opacity: 0.7;
+}
+
+.header-link {
+  text-decoration: none; /* Убираем подчеркивание ссылки */
+  transition: opacity 0.2s;
+  color: #170600;
+  font-weight: 700;
+}
+
+.header-link:hover :not(h1) {
+  opacity: 0.7;
+}
+
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; 
+  left: 20%;
+  transform: translateX(-50%); 
+  z-index: 1; 
+  background-color: #95652e; /* Цвет фона */
+  border-radius: 4px; /* Закругляем углы */
+  padding: 8px; /* Отступы внутри меню */
+  display: none; /* По умолчанию меню скрыто */
+}
+.dropdown-menu ul {
+  list-style: none; 
+  padding: 0;
+}
+.dropdown:hover .dropdown-menu {
+  display: block; 
+}

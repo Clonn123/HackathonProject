@@ -1,0 +1,23 @@
+.user-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .user {
+    padding: 20px;
+    background: linear-gradient(135deg, #b8aba1, #ada097, #b8aba1);
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .user + .user {
+    margin-top: 20px;
+  }
+
+  .user-title {
+    text-align: center;
+  }
+  

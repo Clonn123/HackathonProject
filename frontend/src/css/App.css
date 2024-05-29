@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'KoreanCalligraphy';
+  src: url('./han-zi.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'NipponcyrBold';
+  src: url('./BleakChop.ttf') format('truetype');
+}
+
+
+
+:root {
+  --background: linear-gradient(135deg, #96816e, #96816E, #987F69); 
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--background)
+}
+
+.light-theme {
+  --background-color: #98C1D9;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 450;
+}
+
+
+
+
+
+@import './DarkTheme.css';
+@import './LightTheme.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')

@@ -1,0 +1,44 @@
+.menu {
+    width: 200px;
+    background-color: none;
+    padding: 20px;
+    border-radius: 10px; 
+    border: 1.5px solid #170600; 
+}
+
+.menu h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px; /* Увеличил размер шрифта заголовка */
+    color: #170600; /* Установил цвет текста */
+}
+
+.menu div{
+    border: 1.8px solid transparent; /* Убрал границу по умолчанию */
+    background-color: transparent;
+    padding: 12px 20px; /* Увеличил отступы внутри элемента */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 8px; /* Увеличил отступ между элементами */
+}
+.Link{
+    text-decoration: none;
+}
+
+.menu div:hover {
+    border-color: #170600;
+}
+
+
+.settings-container {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.settings-container.visible {
+    opacity: 1;
+    max-height: 1000px; /* Установите высоту, достаточную для отображения содержимого */
+}
