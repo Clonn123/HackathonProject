@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import ThemeToggleButton from './ThemeToggleButton.js'
 import SearchBar from './SearchBar.js'
 
 function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
@@ -16,12 +15,12 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
         <div className="header">
         <h1><Link to="/" className="header-link" >Стартовая страница</Link></h1>
             <div className="categories">
-            <div><Link to="/animes/sort/-score"  className="category">Аниме</Link></div>
-            <div><Link to="/data-manga/sort/-score" className="category">Манга</Link></div>
-            <div><Link to="/manga/recommendations" className="category">Рекомендации манги</Link></div>
-            <div><Link to="/anime/recommendations" className="category">Рекомендации аниме</Link></div>
+            <div><Link to="/animes/sort/-score"  className="category">Календарь учителя</Link></div>
+            <div><Link to="/data-manga/sort/-score" className="category">Мои заявки</Link></div>
+            <div><Link to="/manga/recommendations" className="category">Мой календарь</Link></div>
+            <div><Link to="/anime/recommendations" className="category">Учителя</Link></div>
           </div>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <div className="registration-link">
           {currentUser ? (
               <div className="dropdown">
@@ -30,13 +29,6 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
                 <ul>
                   <li>
                     <Link to="/profile">Профиль</Link>
-                  </li>
-                  <li>
-                    <Link to={`/myListManga/${currentUser.id}/-score`}>Список манги</Link>
-                    <Link to={`/myList/${currentUser.id}/-score`}>Лист аниме</Link>
-                  </li>
-                  <li>
-                    <Link to="/help">Помощь</Link>
                   </li>
                   <li>
                     <Link onClick={onLogout} to="/logout">Выход</Link>
