@@ -1,9 +1,10 @@
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Users
+from .models import Users, Appointments
 from .models import UserProfile
-from .serializer import UserModelSerializer
+from .serializer import UserModelSerializer, AppointmentSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.request import Request
 from rest_framework.decorators import api_view
@@ -79,7 +80,68 @@ class UserAPIView(APIView):
             return Response(serializer.data)
         except UserProfile.DoesNotExist:
             return Response({"message": "User profile not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+class TeacherListView(APIView):
+    def get(self, request):
+        teachers = Users.objects.filter(role_id=1) # 1 -> препод
+        serializer = UserModelSerializer(teachers, many=True)
+        return Response(serializer.data)
+    
+class AppointmentListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Appointments.objects.all()
+    serializer_class = AppointmentSerializer
 
+# class AppointmentDetailAPIView(APIView):
+#     def delete(self, request, pk):
+#         try:
+#             appointment = Appointments.objects.get(pk=pk)
+#             appointment.delete()
+#             return Response({"detail": "Successfully deleted!"}, status='status.HTTP_204_NO_CONTENT')
+#         except Appointments.DoesNotExist:
+#             return Response({"error": "Встреча не найдена."}, status=status.HTTP_404_NOT_FOUND)
+#         except Exception as e:
+#             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+#
+class AppointmentDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Appointments.objects.get(pk=pk)
+        except Appointments.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+
+    def get(self, request, pk):
+        appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk):
+        appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            appointment = Appointments.objects.get(pk=pk)
+            appointment.delete()
+            return Response({"detail": "Successfully deleted!"}, status=status.HTTP_204_NO_CONTENT)
+        except Appointments.DoesNotExist:
+            return Response({"error": "Встреча не найдена."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 class RegistrationAPIView(APIView): 
     def post(self, request):
         data = request.data
