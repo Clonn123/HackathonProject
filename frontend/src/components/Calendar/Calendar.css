@@ -58,6 +58,7 @@
     position: relative;
     cursor: pointer;
     transition: background-color 0.3s;
+    align-items: center;;
 }
 
 .my-calendar-cell:hover {
@@ -65,10 +66,11 @@
 }
 
 .my-calendar-number {
-    position: absolute;
+    /* position: absolute; */
     top: 8px;
     right: 8px;
     font-weight: bold;
+    align-items: center;
 }
 
 .my-calendar-bg {
@@ -89,4 +91,8 @@
     .my-calendar-header {
         flex-direction: column;
     }
+}
+
+.my-calendar-center {
+    justify-content: center;
 }

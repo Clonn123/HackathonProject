@@ -15,6 +15,7 @@ import time
 import sqlite3
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework import filters
     
 class SettingsProfile(APIView):
     def get(self, request):
@@ -90,6 +91,8 @@ class TeacherListView(APIView):
 class AppointmentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Appointments.objects.all()
     serializer_class = AppointmentSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['appointment_date']
 
 class AppointmentDetailAPIView(APIView):
     def get_object(self, pk):

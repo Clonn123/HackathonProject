@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
-import { addMonths, subMonths, format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
+import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import './Calendar.css';
+import Modal from './Modal';
+import axios from 'axios';
+
 
 const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [eventsModalOpen, setEventsModalOpen] = useState(false);
+    const [events, setEvents] = useState([]); 
+
+    const loadEvents = async (date) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/appointments/?search=${date}`);
+    
+            if (response.status !== 200) {
+                throw new Error('Ошибка загрузки событий');
+            }
+    
+            const data = response.data;
+            setEvents(data);
+        } catch (error) {
+            console.error('Ошибка загрузки данных:', error);
+        }
+    };
 
     const renderHeader = () => {
         const dateFormat = "MMMM yyyy";
@@ -12,7 +32,7 @@ const Calendar = () => {
         return (
             <div className="my-calendar-header my-calendar-row my-calendar-flex-middle">
                 <div className="my-calendar-col my-calendar-col-start">
-                    <div className="my-calendar-icon" onClick={prevMonth}> Previous</div>
+                    <div className="my-calendar-icon" onClick={prevMonth}>Previous</div>
                 </div>
                 <div className="my-calendar-col my-calendar-col-center">
                     <span>{format(currentMonth, dateFormat)}</span>
@@ -28,7 +48,7 @@ const Calendar = () => {
         const dateFormat = "eeee";
         const days = [];
 
-        let startDate = startOfWeek(currentMonth);
+        let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 }); // Week starts on Monday
 
         for (let i = 0; i < 7; i++) {
             days.push(
@@ -38,14 +58,14 @@ const Calendar = () => {
             );
         }
 
-        return <div className="my-calendar-days my-calendar-row">{days}</div>;
+        return <div className="my-calendar-days my-calendar-row my-calendar-center ">{days}</div>;
     };
 
     const renderCells = () => {
         const monthStart = startOfMonth(currentMonth);
         const monthEnd = endOfMonth(monthStart);
-        const startDate = startOfWeek(monthStart);
-        const endDate = endOfWeek(monthEnd);
+        const startDate = startOfWeek(monthStart, { weekStartsOn: 1 }); // Week starts on Monday
+        const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 }); // Week starts on Monday
 
         const dateFormat = "d";
         const rows = [];
@@ -54,20 +74,21 @@ const Calendar = () => {
         let day = startDate;
         let formattedDate = "";
 
+        
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
-                formattedDate = format(day, dateFormat);
                 const cloneDay = day;
+                formattedDate = format(day, dateFormat);
                 days.push(
                     <div
                         className={`my-calendar-col my-calendar-cell ${!isSameMonth(day, monthStart)
                             ? "my-calendar-disabled"
-                            : isSameDay(day, selectedDate) ? "my-calendar-selected" : ""}`}
+                            : isSameDay(day, selectedDate) ? "my-calendar-selected"  : ""}`}
                         key={day}
                         onClick={() => onDateClick(cloneDay)}
                     >
-                        <span className="my-calendar-number">{formattedDate}</span>
-                        <span className="my-calendar-bg">{formattedDate}</span>
+                        {/* <span className="my-calendar-number">{formattedDate}</span> */}
+                        <span className="my-calendar-number my-calendar-center">{formattedDate}</span>
                     </div>
                 );
                 day = addDays(day, 1);
@@ -83,7 +104,12 @@ const Calendar = () => {
     };
 
     const onDateClick = day => {
+        setEventsModalOpen(true);
         setSelectedDate(day);
+        // console.log(day)
+        const formattedDate = format(startOfDay(day), 'yyyy-MM-dd');
+        // console.log(formattedDate);
+        loadEvents(formattedDate);
     };
 
     const nextMonth = () => {
@@ -99,6 +125,8 @@ const Calendar = () => {
             {renderHeader()}
             {renderDays()}
             {renderCells()}
+
+            <Modal isOpen={eventsModalOpen} onClose={() => setEventsModalOpen(false)} events={events} />
         </div>
     );
 };
