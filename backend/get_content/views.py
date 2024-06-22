@@ -91,19 +91,6 @@ class AppointmentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Appointments.objects.all()
     serializer_class = AppointmentSerializer
 
-# class AppointmentDetailAPIView(APIView):
-#     def delete(self, request, pk):
-#         try:
-#             appointment = Appointments.objects.get(pk=pk)
-#             appointment.delete()
-#             return Response({"detail": "Successfully deleted!"}, status='status.HTTP_204_NO_CONTENT')
-#         except Appointments.DoesNotExist:
-#             return Response({"error": "Встреча не найдена."}, status=status.HTTP_404_NOT_FOUND)
-#         except Exception as e:
-#             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-#
 class AppointmentDetailAPIView(APIView):
     def get_object(self, pk):
         try:
