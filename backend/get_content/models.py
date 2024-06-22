@@ -37,7 +37,7 @@ class UserProfile(models.Model):
     
 class Role(models.Model):
     role_id = models.AutoField(primary_key=True)
-    role = models.CharField(20)
+    role = models.TextField()
 
     class Meta:
         db_table = 'role'
@@ -77,8 +77,8 @@ class Appointments(models.Model):
     appointment_duration = models.DurationField()
     entry_datetime = models.DateTimeField()
     theme_id = models.IntegerField()
-    status = models.CharField()
-    kind = models.CharField()
+    status = models.TextField()
+    kind = models.TextField()
 
     class Meta:
         db_table = 'appointments'
