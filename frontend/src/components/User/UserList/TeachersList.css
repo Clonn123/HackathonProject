@@ -1,0 +1,47 @@
+.teachers-list {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.teachers-list h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.teachers-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.teachers-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.teachers-list li:last-child {
+    border-bottom: none;
+}
+
+.teachers-list li:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+.teachers-list .teacher-name {
+    font-weight: bold;
+    color: #555;
+}
+
+.teachers-list .teacher-score {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

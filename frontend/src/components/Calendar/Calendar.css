@@ -1,0 +1,92 @@
+.my-calendar-calendar {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.my-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #007bff;
+    color: white;
+}
+
+.my-calendar-icon {
+    cursor: pointer;
+}
+
+.my-calendar-days {
+    display: flex;
+    flex-direction: row;
+}
+.my-calendar-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-calendar-row {
+    display: flex;
+}
+
+.my-calendar-col {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+}
+
+.my-calendar-col-center {
+    justify-content: center;
+}
+
+.my-calendar-col-start {
+    justify-content: flex-start;
+}
+
+.my-calendar-col-end {
+    justify-content: flex-end;
+}
+
+.my-calendar-cell {
+    min-height: 80px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.my-calendar-cell:hover {
+    background-color: #f0f0f0;
+}
+
+.my-calendar-number {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-weight: bold;
+}
+
+.my-calendar-bg {
+    display: none;
+}
+
+.my-calendar-selected {
+    background-color: #007bff;
+    color: white;
+}
+
+.my-calendar-disabled {
+    color: #ddd;
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .my-calendar-header {
+        flex-direction: column;
+    }
+}

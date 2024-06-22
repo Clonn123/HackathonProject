@@ -13,14 +13,14 @@ class Users(models.Model):
     name = models.TextField()
     surname = models.TextField()
     username = models.TextField()
-    patronymic = models.TextField()
+    patronymic = models.TextField(null=True, blank=True)
     password = models.TextField()
     email = models.TextField()
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='Другое')
     age = models.IntegerField(default=0)
     birthdate = models.DateField()
     photo = models.ImageField(upload_to='users_photos/', null=True, blank=True)
-    role_id = models.IntegerField()
+    role_id = models.IntegerField(default='0')
 
     class Meta:
         db_table = 'users'
