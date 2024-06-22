@@ -8,7 +8,7 @@ import RegistrationForm from './components/Authorization/RegistrationForm/Regist
 import UserList from './components/User/UserList/UserList.js';
 import LoginForm from './components/Authorization/LoginForm/LoginForm.js';
 import Profile from './components/User/Profile/Profile.js';
-import TeachersList from './components/User/User/TeachersList.js';
+import TeachersList from './components/User/UserList/TeachersList.js';
 import Calendar from './components/Calendar/Calendar.js';
 import axios from 'axios';
 

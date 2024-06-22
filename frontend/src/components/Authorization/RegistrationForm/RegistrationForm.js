@@ -9,6 +9,7 @@ function RegistrationForm() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [username, setUsername] = useState('');
+    const [patronymic, setPatronymic] = useState('');
     const [password, setPassword] = useState('');
     const [gender, setGender] = useState('Альтернативный');
     const [birthdate, setBirthdate] = useState('');
@@ -30,6 +31,7 @@ function RegistrationForm() {
           email,
           name,
           surname,
+          patronymic,
           username,
           password,
           gender,
@@ -79,15 +81,21 @@ function RegistrationForm() {
           />
           <input
             type="text"
+            placeholder="Фамилия"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+          />
+          <input
+            type="text"
             placeholder="Имя"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Фамилия"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
+            placeholder="Отчество"
+            value={patronymic}
+            onChange={(e) => setPatronymic(e.target.value)}
           />
           <input
             type="text"

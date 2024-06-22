@@ -12,6 +12,7 @@ class UserModelSerializer(serializers.ModelSerializer):
             'identifier': instance.identifier,
             'name': instance.name,
             'surname': instance.surname,
+            'patronymic': instance.patronymic if instance.patronymic else None,
             'username': instance.username,
             'password': instance.password,
             'email': instance.email,

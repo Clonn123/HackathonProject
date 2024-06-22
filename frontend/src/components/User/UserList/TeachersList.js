@@ -21,7 +21,7 @@ const TeachersList = () => {
             <h1>Список преподавателей</h1>
             <ul>
                 {teachers.map(teacher => (
-                    <li key={teacher.id}>{teacher.name} {teacher.surname} (контактная почта: {teacher.email})</li>
+                    <li key={teacher.id}>{teacher.surname} {teacher.name} {teacher.patronymic} (контактная почта: {teacher.email})</li>
                 ))}
             </ul>
         </div>
