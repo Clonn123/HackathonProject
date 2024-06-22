@@ -16,9 +16,9 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
         <h1><Link to="/" className="header-link" >Стартовая страница</Link></h1>
             <div className="categories">
             <div><Link to="/animes/sort/-score"  className="category">Календарь учителя</Link></div>
-            <div><Link to="/data-manga/sort/-score" className="category">Мои заявки</Link></div>
-            <div><Link to="/manga/recommendations" className="category">Мой календарь</Link></div>
-            <div><Link to="/anime/recommendations" className="category">Учителя</Link></div>
+            <div><Link to="/my_application" className="category">Мои заявки</Link></div>
+            <div><Link to="/user/calendar" className="category">Мой календарь</Link></div>
+            <div><Link to="/list/teachers" className="category">Преподаватели</Link></div>
           </div>
           {/* <SearchBar /> */}
           <div className="registration-link">
