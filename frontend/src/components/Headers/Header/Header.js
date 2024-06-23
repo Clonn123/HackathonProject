@@ -31,7 +31,7 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
                     <Link to="/profile">Профиль</Link>
                   </li>
                   <li>
-                    <Link onClick={onLogout} to="/logout">Выход</Link>
+                    <Link onClick={onLogout} to="/">Выход</Link>
                   </li>
                 </ul>
               </div>

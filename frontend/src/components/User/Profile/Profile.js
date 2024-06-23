@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import Avatar from './Avatar';
 import Menu from './Menu';
-import SettingsPage from './SettingProfile';
 import { Link } from 'react-router-dom';
 import { ProfileContext } from './context';
-import ShikimoriButton from './ShikimoriButton'; // Импортируем компонент OAuthButton
-import axios from 'axios';
-
 
 function Profile({ currentUser, onLogout }) {
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
@@ -27,25 +23,6 @@ function Profile({ currentUser, onLogout }) {
       setCodeInUrl(urlParams.get('code'));
     }
   }, []);
-
-  const handleClick = async () => {
-    // console.info("Code: "+codeInUrl)
-    if (codeInUrl != '') {
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/anime-list/', {
-        codeInUrl: codeInUrl,
-        userId: currentUser.id
-        });
-        console.info(response);
-        setAnimeList(response.data.anime_titles);
-        setMangaList(response.data.manga_titles);
-      } catch (error) {
-        console.error('Ошибка при обработке запроса:', error);
-      }
-    } else {
-      console.error('Ошибка: параметр "code" отсутствует в URL');
-    }
-  };
 
   return (
     <ProfileContext.Provider value={{ setUserImage, userImage, animeList, mangaList }} >
@@ -72,35 +49,6 @@ function Profile({ currentUser, onLogout }) {
         <button className='onLogout_but' onClick={onLogout}>
             <Link to="/" className="link">Выйти</Link>
         </button>
-      
-      <div>      
-        <ShikimoriButton />
-        <button className='fetch_anime_button' onClick={handleClick}>
-            Синхронизировать
-        </button>
-
-        {/* {animeList.length > 0 && (
-            <div>
-              <h3>Список аниме:</h3>
-              <ul>
-                {animeList.map((anime, index) => (
-                  <li key={index}>{["Название: " + anime.title + " ID: " + anime.title_id + " Статус: " + anime.status + " Оценка: " + anime.score]}</li>
-                ))}
-              </ul>
-            </div>
-          )} */}
-          {mangaList.length > 0 && (
-            <div>
-              <h3>Ваш список манги загружен с Шикимори!</h3>
-              {/* <h3>Список манги:</h3> */}
-              {/* <ul>
-                {mangaList.map((manga, index) => (
-                  <li key={index}>{["Название: " + manga.title + " ID: " + manga.title_id + " Статус: " + manga.status + " Оценка: " + manga.score]}</li>
-                ))}
-              </ul> */}
-            </div>
-          )}
-      </div>
       {/* <style>
         {`
           html {

@@ -20,12 +20,8 @@ function Menu({currentUser}) {
         <hr className="separator" />
         <ln>
           <Link className='Link' to="/"><div>Главная</div></Link>
-          <Link className='Link' to={`/myList/${currentUser.id}/-score`}><div>Список Аниме</div></Link>
-          <Link className='Link' to={`/myListManga/${currentUser.id}/-score`}><div>Список манги</div></Link>
-          <Link className='Link' to="/manga/recommendations"><div>Рекомендации манги</div></Link>
           <Link className='Link' to="/list/teachers"><div>Преподаватели</div></Link>
           <Link className='Link' to="/user/calendar"><div>Мой календарь</div></Link>
-          <div>Друзья</div>
         </ln>
         
         <hr className="separator" />
@@ -33,11 +29,7 @@ function Menu({currentUser}) {
           {showSettint ? 'Скрыть настройки' : 'Настройки'}
         </div>
       </div>
-      
       </>
-        
-      
-      
     );
   }
   

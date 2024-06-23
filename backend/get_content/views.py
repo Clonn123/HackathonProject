@@ -1,3 +1,4 @@
+import re
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
@@ -139,6 +140,12 @@ class RegistrationAPIView(APIView):
         # Проверяем уникальность имени пользователя и адреса электронной почты
         username = data['username']
         email = data['email']
+
+        # Проверка шаблона email
+        pattern = r'^[a-zA-Z0-9._%+-]+@edu\.hse\.ru$'
+        if not re.match(pattern, email):
+            return Response({"error": "Email должен быть в формате FullName@edu.hse.ru"}, status=status.HTTP_400_BAD_REQUEST)
+
         if Users.objects.filter(username=username).exists():
             return Response({"error": "Username already exists"}, status=status.HTTP_401_UNAUTHORIZED)
         if Users.objects.filter(email=email).exists():

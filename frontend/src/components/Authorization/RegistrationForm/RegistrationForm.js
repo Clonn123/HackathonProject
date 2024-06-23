@@ -25,6 +25,12 @@ function RegistrationForm() {
         setError('Пожалуйста, заполните все поля');
         return;
       }
+
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@edu\.hse\.ru$/;
+      if (!emailPattern.test(email)) {
+        setError('Email должен быть в формате FullName@edu.hse.ru');
+        return;
+      }
   
     try {
       axios.post('http://127.0.0.1:8000/api/register/', {
