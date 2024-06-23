@@ -37,7 +37,7 @@
   }  
 
   /* CSS для модального окна */
-.modal {
+.modalReg {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -135,7 +135,7 @@ function RegistrationForm() {
         </form>
         {/* Модальное окно */}
         {showModal && (
-          <div className="modal">
+          <div className="modalReg">
             <div className="modal-content">
               <span className="close" onClick={closeModal}>&times;</span>
               <p className="success-message">{successMessage}</p>
