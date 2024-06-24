@@ -8,7 +8,7 @@ from .models import UserProfile
 from .serializer import UserModelSerializer, AppointmentSerializer, EventSerializer
 from rest_framework.request import Request
 from rest_framework.decorators import api_view
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import Q
 import requests
 import time
@@ -216,16 +216,24 @@ class RegistrationAPIView(APIView):
 class EventAPIView(APIView): 
     def post(self, request):
         data = request.data
-        teacher_id = data['teacher_id']
-        event_date = data['event_date']
-        duration = data['duration']
-        data['event_id'] = 1
-        print("teacher_id", teacher_id)
-        print("event_date", event_date)
-        print("duration", duration)
-
-        serializer = EventSerializer(data=data)
+        serializer = EventSerializer(data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class EventsDetailAPIView(APIView):
+    def get(self, request):
+        search_date = request.query_params.get('search')
+        print("search_date", search_date)
+        event = Events.objects.filter(event_date=search_date)
+        serializer = EventSerializer(event, many=True)
+        return Response(serializer.data)
+    
+class EventsDetailTeacherAPIView(APIView):
+    def get(self, request):
+        search = request.GET.get('search')
+        id_teacher = request.GET.get('id_teacher')
+        appointment = Events.objects.get(event_date=search, teacher_id = id_teacher)
+        serializer = EventSerializer(appointment)
+        return Response(serializer.data)

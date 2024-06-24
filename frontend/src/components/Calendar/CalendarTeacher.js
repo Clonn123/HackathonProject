@@ -13,7 +13,7 @@ const CalendarTeacher = ({ id_teacher }) => {
 
     const loadEvents = async (date) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/appointments/?search=${date}&id_teacher=${id_teacher}`);
+            const response = await axios.get(`http://localhost:8000/api/eventsList/?search=${date}&id_teacher=${id_teacher}`);
     
             if (response.status !== 200) {
                 throw new Error('Ошибка загрузки событий');

@@ -3,7 +3,7 @@ import { format, startOfDay, setHours, setMinutes, setSeconds } from 'date-fns';
 import axios from 'axios';
 import './ModalEvent.css';
 
-const ModalEvent = ({ isOpen, onClose, selectedDate, id_teacher, onSlotCreated }) => {
+const ModalEvent = ({ isOpen, onClose, selectedDate, id_teacher }) => {
     const [duration, setDuration] = useState('');
     const [error, setError] = useState('');
 
@@ -11,22 +11,21 @@ const ModalEvent = ({ isOpen, onClose, selectedDate, id_teacher, onSlotCreated }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formattedDate = format(startOfDay(new Date(selectedDate)), 'yyyy-MM-dd HH:mm:ss'); // Убедитесь, что selectedDate объект Date
+        const formattedDate = format(startOfDay(new Date(selectedDate)), 'yyyy-MM-dd'); // Убедитесь, что selectedDate объект Date
 
-        // Преобразование продолжительности из формата "1:20" в миллисекунды
+        // Преобразование продолжительности из формата "1:20" в минуты
         const [hours, minutes] = duration.split(':').map(Number);
-        const durationInSeconds = (hours * 3600) + (minutes * 60); // Преобразуем в секунды
+        const durationInSeconds = (hours * 60) + (minutes); // Преобразуем в минуты
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/events/', {
                 teacher_id: id_teacher,
                 event_date: formattedDate,
-                duration: `PT${hours}H${minutes}M`,
+                duration: durationInSeconds
             });
 
             if (response.status === 201) {
-                onSlotCreated(response.data);
-                onClose();
+                onClose(); // Закрыть окно со списком после успешного создания
             }
         } catch (error) {
             setError('Ошибка при создании слота');

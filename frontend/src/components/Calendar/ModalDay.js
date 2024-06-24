@@ -3,7 +3,7 @@ import './ModalDay.css';
 import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import ModalEvent from './ModalEvent';
 
-const Modal = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
+const ModalDay = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
     const [isCreateSlotModalOpen, setIsCreateSlotModalOpen] = useState(false);
 
     if (!isOpen) return null;
@@ -14,6 +14,7 @@ const Modal = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
 
     const closeCreateSlotModal = () => {
         setIsCreateSlotModalOpen(false);
+        onClose(); // Закрыть текущее модальное окно
     };
 
     return (
@@ -27,11 +28,9 @@ const Modal = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
                 <div className="modal-body">
                     <div className="modal-content">
                         {events.map(event => (
-                            <div key={event.appointment_id} className="event-item">
-                                <p><strong>Дата:</strong> {event.appointment_date}</p>
-                                <p><strong>Продолжительность:</strong> {event.appointment_duration} минут</p>
-                                <p><strong>Тема:</strong> {event.theme_id}</p>
-                                <p><strong>Статус:</strong> {event.status}</p>
+                            <div key={event.event_id} className="event-item">
+                                <p><strong>Дата:</strong> {event.event_date}</p>
+                                <p><strong>Продолжительность:</strong> {event.duration} минут</p>
                                 {/* Другие поля по необходимости */}
                             </div>
                         ))}
@@ -48,4 +47,4 @@ const Modal = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
     );
 };
 
-export default Modal;
+export default ModalDay;
