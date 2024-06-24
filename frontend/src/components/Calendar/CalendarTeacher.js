@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import './CalendarTeacher.css';
-import Modal from './ModalDay';
+import ModalDayTeacher from './ModalDayTeacher';
 import axios from 'axios';
 
 
-const CalendarTeacher = ({ id_teacher }) => {
+const CalendarTeacher = () => {
+    const { id_teacher } = useParams(); // Получаем id_teacher из URL
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [eventsModalOpen, setEventsModalOpen] = useState(false);
@@ -13,7 +15,7 @@ const CalendarTeacher = ({ id_teacher }) => {
 
     const loadEvents = async (date) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/eventsList/?search=${date}&id_teacher=${id_teacher}`);
+            const response = await axios.get(`http://localhost:8000/api/eventsList/${id_teacher}/?search=${date}`);
     
             if (response.status !== 200) {
                 throw new Error('Ошибка загрузки событий');
@@ -126,7 +128,12 @@ const CalendarTeacher = ({ id_teacher }) => {
             {renderDays()}
             {renderCells()}
 
-            <Modal isOpen={eventsModalOpen} onClose={() => setEventsModalOpen(false)} events={events} />
+            <ModalDayTeacher 
+            isOpen={eventsModalOpen} 
+            onClose={() => setEventsModalOpen(false)} 
+            events={events} 
+            id_teacher={id_teacher} 
+            selectedDate={selectedDate} />
         </div>
     );
 };

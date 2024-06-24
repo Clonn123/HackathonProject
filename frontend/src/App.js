@@ -87,7 +87,7 @@ function App() {
           <Route path="/my_appointments" element={<AppointmentsList currentUser={currentUser}/>} />
           <Route path="/user/calendar" element={<Calendar currentUser={currentUser}/>} />
           <Route path="/list/teachers" element={<TeachersList />} />
-          <Route path="/list/teachers/calendar" element={<CalendarTeacher currentUser={currentUser}/>} />
+          <Route path="/list/teachers/calendar/:id_teacher" element={<CalendarTeacher />} />
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="/login" element={<LoginForm users={users} onLogin={handleLogin} />} />
           <Route path="/" element={<UserList users={users} />} />

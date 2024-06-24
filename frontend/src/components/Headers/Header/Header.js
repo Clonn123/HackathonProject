@@ -15,7 +15,6 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
         <div className="header">
         <h1><Link to="/" className="header-link" >Календарь консультаций</Link></h1>
             <div className="categories">
-            <div><Link to="/list/teachers/calendar"  className="category">Календарь учителя</Link></div>
             <div><Link to="/my_appointments" className="category">Мои заявки</Link></div>
             <div><Link to="/user/calendar" className="category">Мой календарь</Link></div>
             <div><Link to="/list/teachers" className="category">Преподаватели</Link></div>

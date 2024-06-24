@@ -225,15 +225,15 @@ class EventAPIView(APIView):
 class EventsDetailAPIView(APIView):
     def get(self, request):
         search_date = request.query_params.get('search')
-        print("search_date", search_date)
         event = Events.objects.filter(event_date=search_date)
         serializer = EventSerializer(event, many=True)
         return Response(serializer.data)
     
 class EventsDetailTeacherAPIView(APIView):
-    def get(self, request):
-        search = request.GET.get('search')
-        id_teacher = request.GET.get('id_teacher')
+    def get(self, request, id_teacher):
+        search = request.query_params.get('search')
+        print("search", search)
+        print("id_teacher", id_teacher)
         appointment = Events.objects.get(event_date=search, teacher_id = id_teacher)
         serializer = EventSerializer(appointment)
         return Response(serializer.data)
