@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Импортируем компонент Link для создания ссылок
 import axios from 'axios';
 import "../UserList/UserList.css";
 import '../UserList/TeachersList.css';
@@ -21,7 +22,9 @@ const TeachersList = () => {
             <h1>Список преподавателей</h1>
             <ul>
                 {teachers.map(teacher => (
-                    <li key={teacher.id}>{teacher.surname} {teacher.name} {teacher.patronymic} (контактная почта: {teacher.email})</li>
+                    <Link to={`/list/teachers/calendar/${teacher.id}`}>
+                    {teacher.surname} {teacher.name} {teacher.patronymic} (контактная почта: {teacher.email})
+                    </Link>
                 ))}
             </ul>
         </div>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
-import './Calendar.css';
-import Modal from './ModalDay';
+import './CalendarTeacher.css';
+import ModalDayTeacher from './ModalDayTeacher';
 import axios from 'axios';
 
 
-const Calendar = ({ currentUser }) => {
+const CalendarTeacher = () => {
+    const { id_teacher } = useParams(); // Получаем id_teacher из URL
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [eventsModalOpen, setEventsModalOpen] = useState(false);
@@ -13,7 +15,7 @@ const Calendar = ({ currentUser }) => {
 
     const loadEvents = async (date) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/eventsList/?search=${date}`);
+            const response = await axios.get(`http://localhost:8000/api/eventsList/${id_teacher}/?search=${date}`);
     
             if (response.status !== 200) {
                 throw new Error('Ошибка загрузки событий');
@@ -106,7 +108,9 @@ const Calendar = ({ currentUser }) => {
     const onDateClick = day => {
         setEventsModalOpen(true);
         setSelectedDate(day);
+        // console.log(day)
         const formattedDate = format(startOfDay(day), 'yyyy-MM-dd');
+        // console.log(formattedDate);
         loadEvents(formattedDate);
     };
 
@@ -124,14 +128,14 @@ const Calendar = ({ currentUser }) => {
             {renderDays()}
             {renderCells()}
 
-            <Modal 
+            <ModalDayTeacher 
             isOpen={eventsModalOpen} 
             onClose={() => setEventsModalOpen(false)} 
             events={events} 
-            id_teacher={currentUser.id} 
+            id_teacher={id_teacher} 
             selectedDate={selectedDate} />
         </div>
     );
 };
 
-export default Calendar;
+export default CalendarTeacher;

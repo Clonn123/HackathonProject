@@ -49,17 +49,18 @@ class UserSchedule(models.Model):
     class Meta:
         db_table = 'schedules'
 
-
+# Слоты консультаций
 class Events(models.Model):
     event_id = models.AutoField(primary_key=True)
-    schedule_id = models.IntegerField()
+    teacher_id = models.IntegerField()
+    # schedule_id = models.IntegerField()
     event_date = models.DateField()
     duration = models.DurationField()
 
     class Meta:
         db_table = 'events'
 
-
+# Темы заявок
 class Themes(models.Model):
     theme_id = models.AutoField(primary_key=True)
     theme_name = models.CharField(max_length=200)
@@ -68,17 +69,17 @@ class Themes(models.Model):
     class Meta:
         db_table = 'themes'
 
-
+# Заявка на констультацию
 class Appointments(models.Model):
     appointment_id = models.AutoField(primary_key=True)
-    schedule_id = models.IntegerField()
+    event_id = models.IntegerField()
     user_id = models.IntegerField()
-    appointment_date = models.DateField()
-    appointment_duration = models.DurationField()
+    # appointment_date = models.DateField()
+    # appointment_duration = models.DurationField()
     entry_datetime = models.DateTimeField()
     theme_id = models.IntegerField()
     status = models.TextField()
-    kind = models.TextField()
+    description = models.TextField()
 
     class Meta:
         db_table = 'appointments'

@@ -9,7 +9,9 @@ import UserList from './components/User/UserList/UserList.js';
 import LoginForm from './components/Authorization/LoginForm/LoginForm.js';
 import Profile from './components/User/Profile/Profile.js';
 import TeachersList from './components/User/UserList/TeachersList.js';
+import AppointmentsList from './components/Appointments/AppointmentsList.js';
 import Calendar from './components/Calendar/Calendar.js';
+import CalendarTeacher from './components/Calendar/CalendarTeacher.js';
 import axios from 'axios';
 
 function App() {
@@ -82,8 +84,10 @@ function App() {
         <Header currentUser={currentUser} toggleTheme={toggleTheme} isDarkMode={isDarkMode} onLogout={handleLogout} />
         <div className='all_buddy'>
         <Routes>
-          <Route path="/user/calendar" element={<Calendar />} />
+          <Route path="/my_appointments" element={<AppointmentsList currentUser={currentUser}/>} />
+          <Route path="/user/calendar" element={<Calendar currentUser={currentUser}/>} />
           <Route path="/list/teachers" element={<TeachersList />} />
+          <Route path="/list/teachers/calendar/:id_teacher" element={<CalendarTeacher />} />
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="/login" element={<LoginForm users={users} onLogin={handleLogin} />} />
           <Route path="/" element={<UserList users={users} />} />
