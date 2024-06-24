@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
-import './Calendar.css';
+import './CalendarTeacher.css';
 import Modal from './ModalDay';
 import axios from 'axios';
 
 
-const Calendar = ({ currentUser }) => {
+const CalendarTeacher = ({ id_teacher }) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [eventsModalOpen, setEventsModalOpen] = useState(false);
@@ -13,7 +13,7 @@ const Calendar = ({ currentUser }) => {
 
     const loadEvents = async (date) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/appointments/?search=${date}`);
+            const response = await axios.get(`http://localhost:8000/api/appointments/?search=${date}&id_teacher=${id_teacher}`);
     
             if (response.status !== 200) {
                 throw new Error('Ошибка загрузки событий');
@@ -106,7 +106,9 @@ const Calendar = ({ currentUser }) => {
     const onDateClick = day => {
         setEventsModalOpen(true);
         setSelectedDate(day);
+        // console.log(day)
         const formattedDate = format(startOfDay(day), 'yyyy-MM-dd');
+        // console.log(formattedDate);
         loadEvents(formattedDate);
     };
 
@@ -124,14 +126,9 @@ const Calendar = ({ currentUser }) => {
             {renderDays()}
             {renderCells()}
 
-            <Modal 
-            isOpen={eventsModalOpen} 
-            onClose={() => setEventsModalOpen(false)} 
-            events={events} 
-            id_teacher={currentUser.id} 
-            selectedDate={selectedDate} />
+            <Modal isOpen={eventsModalOpen} onClose={() => setEventsModalOpen(false)} events={events} />
         </div>
     );
 };
 
-export default Calendar;
+export default CalendarTeacher;

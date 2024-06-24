@@ -3,10 +3,9 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Users, Appointments
+from .models import Users, Appointments, Events
 from .models import UserProfile
-from .serializer import UserModelSerializer, AppointmentSerializer
-from django.contrib.auth import get_user_model
+from .serializer import UserModelSerializer, AppointmentSerializer, EventSerializer
 from rest_framework.request import Request
 from rest_framework.decorators import api_view
 from datetime import datetime
@@ -89,6 +88,13 @@ class TeacherListView(APIView):
         serializer = UserModelSerializer(teachers, many=True)
         return Response(serializer.data)
     
+class AppointmentsListView(APIView):
+    def get(self, request):
+        id_user = request.GET.get('id_user')
+        appointments = Appointments.objects.filter(user_id = id_user)
+        serializer = AppointmentSerializer(appointments, many=True)
+        return Response(serializer.data)
+    
 class AppointmentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Appointments.objects.all()
     serializer_class = AppointmentSerializer
@@ -104,6 +110,46 @@ class AppointmentDetailAPIView(APIView):
 
     def get(self, request, pk):
         appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk):
+        appointment = self.get_object(pk)
+        serializer = AppointmentSerializer(appointment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            appointment = Appointments.objects.get(pk=pk)
+            appointment.delete()
+            return Response({"detail": "Successfully deleted!"}, status=status.HTTP_204_NO_CONTENT)
+        except Appointments.DoesNotExist:
+            return Response({"error": "Встреча не найдена."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class AppointmentDetailTeacherAPIView(APIView):
+    def get_object(self, search, id_teacher):
+        try:
+            return Appointments.objects.get(appointment_id=search, user_id = id_teacher)
+        except Appointments.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+
+    def get(self, request):
+        search = request.GET.get('search')
+        id_teacher = request.GET.get('id_teacher')
+        appointment = self.get_object(search, id_teacher)
         serializer = AppointmentSerializer(appointment)
         return Response(serializer.data)
 
@@ -166,3 +212,20 @@ class RegistrationAPIView(APIView):
         today = datetime.today()
         age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
         return age
+    
+class EventAPIView(APIView): 
+    def post(self, request):
+        data = request.data
+        teacher_id = data['teacher_id']
+        event_date = data['event_date']
+        duration = data['duration']
+        data['event_id'] = 1
+        print("teacher_id", teacher_id)
+        print("event_date", event_date)
+        print("duration", duration)
+
+        serializer = EventSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

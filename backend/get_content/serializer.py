@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users, Appointments
+from .models import Users, Appointments, Events
 
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,13 +31,25 @@ class AppointmentSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = {     
             'appointment_id': instance.appointment_id,
-            'schedule_id': instance.schedule_id,
+            'event_id': instance.event_id,
             'user_id': instance.user_id,
-            'appointment_date': instance.appointment_date,
-            'appointment_duration': instance.appointment_duration,
             'entry_datetime': instance.entry_datetime,
             'theme_id': instance.theme_id,
             'status': instance.status,
-            'kind': instance.kind,
+            'description': instance.description,
+        }
+        return representation
+    
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Events
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = {     
+            'event_id': instance.event_id,
+            'teacher_id': instance.teacher_id,
+            'event_date': instance.event_date,
+            'duration': instance.duration,
         }
         return representation

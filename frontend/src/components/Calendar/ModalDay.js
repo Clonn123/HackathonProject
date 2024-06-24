@@ -1,14 +1,27 @@
-import React from 'react';
-import './Modal.css';
+import React, { useState, useEffect } from 'react';
+import './ModalDay.css';
+import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
+import ModalEvent from './ModalEvent';
 
-const Modal = ({ isOpen, onClose, events }) => {
+const Modal = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
+    const [isCreateSlotModalOpen, setIsCreateSlotModalOpen] = useState(false);
+
     if (!isOpen) return null;
+
+    const openCreateSlotModal = () => {
+        setIsCreateSlotModalOpen(true);
+    };
+
+    const closeCreateSlotModal = () => {
+        setIsCreateSlotModalOpen(false);
+    };
 
     return (
         <div className="modal-overlay">
             <div className="modal">
                 <div className="modal-header">
-                    <h2>События на выбранную дату</h2>
+                    <h2>Слоты на выбранную дату</h2>
+                    <button onClick={openCreateSlotModal}>Добавить слот</button>
                     <button className="modal-close-btn" onClick={onClose}>Закрыть</button>
                 </div>
                 <div className="modal-body">
@@ -25,6 +38,12 @@ const Modal = ({ isOpen, onClose, events }) => {
                     </div>
                 </div>
             </div>
+            <ModalEvent 
+                isOpen={isCreateSlotModalOpen} 
+                onClose={closeCreateSlotModal} 
+                selectedDate={selectedDate} 
+                id_teacher={id_teacher}
+            />
         </div>
     );
 };
