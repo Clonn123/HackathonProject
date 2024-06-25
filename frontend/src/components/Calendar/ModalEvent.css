@@ -6,8 +6,19 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Изменение */
     align-items: center;
+    padding: 0 10%; /* Добавление отступов слева и справа */
+}
+
+.modal-container-right {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    height: 100%;
+    margin-right: 180px;
 }
 
 .modal {
@@ -42,4 +53,8 @@
 .error-message {
     color: red;
     margin-top: 10px;
+}
+.event-button img {
+    width: 32px; 
+    height: 32px;
 }
