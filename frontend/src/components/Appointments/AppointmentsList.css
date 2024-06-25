@@ -1,10 +1,11 @@
 .appointments-list {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .appointments-list h1 {
@@ -19,11 +20,11 @@
 }
 
 .appointments-list li {
-    display: flex;
+    /*display: flex;*/
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
 }
 
 .appointments-list li:last-child {
@@ -44,4 +45,11 @@
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.spli {
+    display: inline-block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ModalDay.css';
 import { addMonths, subMonths, format, startOfDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
-import ModalEvent from './ModalEvent';
+import ModalEvent from './ModalEventTeacher';
+
+
 
 const ModalDayTeacher = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
     const [isCreateSlotModalOpen, setIsCreateSlotModalOpen] = useState(false);
@@ -37,12 +39,18 @@ const ModalDayTeacher = ({ isOpen, onClose, events, id_teacher, selectedDate }) 
                                 <div key={event.event_id} className="event-item">
                                     <p><strong>Дата:</strong> {event.event_date}</p>
                                     <p><strong>Продолжительность:</strong> {event.duration} минут</p>
-                                    {/* Другие поля по необходимости */}
+                                    <p><button onClick={() => openCreateSlotModal()}>Записаться</button></p>
                                 </div>
                         ))}
                     </div>
                 </div>
             </div>
+            <ModalEvent 
+                isOpen={isCreateSlotModalOpen} 
+                onClose={closeCreateSlotModal} 
+                selectedDate={selectedDate} 
+                id_teacher={id_teacher}
+            />
         </div>
     );
 };

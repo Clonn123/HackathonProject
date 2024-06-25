@@ -19,7 +19,17 @@ const AppointmentsList = ({ currentUser }) => {
         <div className="appointments-list">
             <h1>Список заявок</h1>
             <ul>
+                <li >
+                    <ul>
+                        <li className="spli">28.06.2024</li>
+                        <li className="spli">0:30</li>
+                        <li className="spli">10:32</li>
+                        <li className="spli">22.06.2024</li>
+                        <li className="spli">ожидает утверждения</li>
+                    </ul>
+                </li>
                 {appointments.map(appointment => (
+                    
                     <li key={appointment.appointment_id}>{appointment.appointment_date} {appointment.appointment_duration} {appointment.entry_datetime} {appointment.status}</li>
                 ))}
             </ul>
