@@ -20,7 +20,8 @@ const ModalDay = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
     };
 
     return (
-        <div className="modal-overlay">            
+        <div className="modal-overlay">
+            <div className="modal-container-left">
                 <div className="modal">
                     <div className="modal-header">
                         <h2>Слоты на выбранную дату</h2>
@@ -39,8 +40,9 @@ const ModalDay = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
                         </div>
                     </div>
                 </div>
-                            
-            <div className="modal-container-right">                
+            </div>
+            <div className="modal-container-right">
+                
                     <div className="modal-header">
                         <h2>Заявки на слоты</h2>                        
                         <button className="modal-close-btn" onClick={onClose}>Закрыть</button>
