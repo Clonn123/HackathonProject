@@ -53,8 +53,8 @@ const ModalDay = ({ isOpen, onClose, events, id_teacher, selectedDate }) => {
                                 <div key={event.event_id} className="event-item">
                                     <p><strong>Дата:</strong> {event.event_date}</p>
                                     <p><strong>Продолжительность:</strong> {event.duration} минут</p>
-                                    <p><strong>Студент:</strong> Иванов Иван </p>
-                                    <p><strong>Тема:</strong> Консультация </p>
+                                    <p><strong>Студент:</strong> Полозников Артем Андреевич </p>
+                                    <p><strong>Тема:</strong> КР </p>
                                     <div className="event-buttons">
                                         <button className="event-button">
                                             <img src={gal} alt="Approve" />

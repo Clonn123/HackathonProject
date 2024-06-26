@@ -17,8 +17,8 @@ import axios from 'axios';
 function App() {
 
   const [users, setUsers] = useState([
-    { id: 1, name: 'Артем', surname: 'Полозников', username: 'Clonn123', password: 'Clonn123', email: 'art-clon@mail.ru', gender: "Мужчина", age: "21" },
-    { id: 2, name: 'Дмитрий', surname: 'Сальников', username: 'Lownay', password: 'Lownay', email: 'Lownay@mail.ru', gender: "Мужчина", age: "21"  }, 
+    { id: 1, name: 'Артем', surname: 'Полозников', username: 'Clonn123', password: 'Clonn123', email: 'art-clon@mail.ru', gender: "Мужчина", age: "21", role_id: 0 },
+    { id: 2, name: 'Дмитрий', surname: 'Сальников', username: 'Lownay', password: 'Lownay', email: 'Lownay@mail.ru', gender: "Мужчина", age: "21", role_id: 0 }, 
   ]);
 
   const [currentUser, setCurrentUser] = useState();

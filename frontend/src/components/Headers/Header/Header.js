@@ -14,11 +14,17 @@ function Header({ currentUser, toggleTheme, isDarkMode, onLogout }) {
     <div className="header-container">
         <div className="header">
         <h1><Link to="/" className="header-link" >Календарь консультаций</Link></h1>
-            <div className="categories">
-            <div><Link to="/my_appointments" className="category">Мои заявки</Link></div>
+        <div className="categories">
+          {currentUser && currentUser.role_id === 1 && (
             <div><Link to="/user/calendar" className="category">Мой календарь</Link></div>
-            <div><Link to="/list/teachers" className="category">Преподаватели</Link></div>
-          </div>
+          )}
+          {currentUser && currentUser.role_id === 0 && (
+            <>
+              <div><Link to="/my_appointments" className="category">Мои заявки</Link></div>
+              <div><Link to="/list/teachers" className="category">Преподаватели</Link></div>
+            </>
+          )}
+        </div>
           {/* <SearchBar /> */}
           <div className="registration-link">
           {currentUser ? (

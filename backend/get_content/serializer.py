@@ -20,6 +20,7 @@ class UserModelSerializer(serializers.ModelSerializer):
             'age': instance.age,
             'birthdate': instance.birthdate,
             'photo': instance.photo.url if instance.photo else None, 
+            'role_id': instance.role_id,
         }
         return representation
 

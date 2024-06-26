@@ -1,7 +1,7 @@
 .header-container {
   padding: 10px 0;
   position: relative;
-  font-family: 'KoreanCalligraphy', sans-serif;
+  /* font-family: 'KoreanCalligraphy', sans-serif; */
 }
 
 .header-container::after {
@@ -95,7 +95,7 @@ h1{
   left: 20%;
   transform: translateX(-50%); 
   z-index: 1; 
-  background-color: #95652e; /* Цвет фона */
+  background-color: #2e6595; /* Цвет фона */
   border-radius: 4px; /* Закругляем углы */
   padding: 8px; /* Отступы внутри меню */
   display: none; /* По умолчанию меню скрыто */

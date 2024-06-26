@@ -21,10 +21,10 @@ const AppointmentsList = ({ currentUser }) => {
             <ul>
                 <li >
                     <ul>
-                        <li className="spli">28.06.2024</li>
-                        <li className="spli">0:30</li>
-                        <li className="spli">10:32</li>
-                        <li className="spli">22.06.2024</li>
+                        <li className="spli">26.06.2024</li>
+                        <li className="spli">1:30</li>
+                        <li className="spli">12:30</li>
+                        <li className="spli">30.06.2024</li>
                         <li className="spli">ожидает утверждения</li>
                     </ul>
                 </li>
